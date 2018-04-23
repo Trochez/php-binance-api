@@ -779,8 +779,15 @@ class API
         if (isset($this->info[$symbol]) == false) {
             $this->info[$symbol] = [];
         }
-        $this->info[$symbol]['firstUpdate'] = $json['lastUpdateId'];
-        return $this->depthData($symbol, $json);
+        //check if market exist
+        if(isset($json['lastUpdateId'])){
+            $this->info[$symbol]['firstUpdate'] = $json['lastUpdateId'];
+            return $this->depthData($symbol, $json);
+        }
+        else{
+            return false;
+        }
+
     }
 
     /**
